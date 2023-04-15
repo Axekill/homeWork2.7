@@ -24,10 +24,10 @@ public class EmployeeService {
     public void addEmployee(Employee employee)
             throws EmployeeStorageIsFullException,
             EmployeeAlreadyAddedException {
-        if (employees.containsKey(employee)) {
+        if (employees.containsKey(employee.getFullName())) {
             throw new EmployeeAlreadyAddedException();
         } else {
-            employees.put("",employee);
+            employees.put(employee.getFullName(), employee);
         }
         if (employees.size() > 4) {
             throw new EmployeeStorageIsFullException();
@@ -35,18 +35,18 @@ public class EmployeeService {
     }
 
     public void employeeRemove(Employee employee) throws EmployeeNotFoundException {
-        if (!employees.containsKey(employee)) {
+        if (!employees.containsKey(employee.getFullName())) {
             throw new EmployeeNotFoundException();
         } else {
-            employees.remove(employee);
+            employees.remove(employee.getFullName());
         }
     }
 
     public Employee employeeFind(Employee employee) throws EmployeeNotFoundException {
-        if (!employees.containsKey(employee)) {
+        if (!employees.containsKey(employee.getFullName())) {
             throw new EmployeeNotFoundException();
         }
-        return employee;
+        return employees.get(employee.getFullName());
     }
 
     public Map<String,Employee> getEmployees() {
